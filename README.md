@@ -16,6 +16,10 @@ This is an unofficial build. It is not made or supported by Tailscale Inc.
 |---|---|
 | `tailscaled-1.104.7-mipsle-slim.gz` | `f10e4e25ce4e51d2a8a2d60b0ee2d647eb6facfdcdbf45213b88cad8f0017c64` |
 | the same file unpacked (`gunzip`) | `9c7c2bc530682503fd05c307fc96cc9dcc1bc9a59ff1f389df4abda96df6142c` |
+| `tailscaled-1.104.7-mipsle-slim2.gz` (release `v1.104.7-slim2`) | `1a2a6a0e188aa537b7ea57f3cdcbcceeb7207a4b39b15db58023130e0bbf58bc` |
+| slim2 unpacked (`gunzip`) | `fa644b3108bf3128ff6f7f1cec5da5ec8679061702369859b4c5fb423cdf56b7` |
+
+`slim2` is the same build with one feature added back: using an exit node (`useexitnode`), 15.79 MB unpacked.
 
 A device should pin the unpacked SHA-256 and reject any download that does not match.
 Then the download host does not need to be trusted.
@@ -47,7 +51,7 @@ MagicDNS server, no auto-update, and no log upload.
 ```sh
 git clone --depth 1 --branch v1.104.7 https://github.com/tailscale/tailscale.git
 cd tailscale
-TAGS="$(go run ./cmd/featuretags --min --add=osrouter,nattraversal,ipnbus,cli)" \
+TAGS="$(go run ./cmd/featuretags --min --add=osrouter,nattraversal,ipnbus,cli)"   # slim2: add ,useexitnode \
   GOOS=linux GOARCH=mipsle GOMIPS=softfloat \
   ./build_dist.sh --strip -o tailscaled.box ./cmd/tailscaled
 gzip -9 -c tailscaled.box > tailscaled-1.104.7-mipsle-slim.gz
