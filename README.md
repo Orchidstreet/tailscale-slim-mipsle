@@ -51,7 +51,8 @@ MagicDNS server, no auto-update, and no log upload.
 ```sh
 git clone --depth 1 --branch v1.104.7 https://github.com/tailscale/tailscale.git
 cd tailscale
-TAGS="$(go run ./cmd/featuretags --min --add=osrouter,nattraversal,ipnbus,cli)"   # slim2: add ,useexitnode \
+# for slim2, add ,useexitnode to the --add list
+TAGS="$(go run ./cmd/featuretags --min --add=osrouter,nattraversal,ipnbus,cli)" \
   GOOS=linux GOARCH=mipsle GOMIPS=softfloat \
   ./build_dist.sh --strip -o tailscaled.box ./cmd/tailscaled
 gzip -9 -c tailscaled.box > tailscaled-1.104.7-mipsle-slim.gz
